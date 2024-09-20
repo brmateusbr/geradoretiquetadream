@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <title>Gerador de Etiquetas</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <h1>Gerador de Etiquetas</h1>
+    <form id="form">
+        <div id="campos"></div>
+        <button type="button" onclick="adicionarCampo()">Adicionar EAN</button>
+        <button type="submit">Gerar Etiquetas</button>
+    </form>
+
+    <h2>Etiquetas Geradas</h2>
+    <pre id="resultado"></pre>
+
+    <script src="script.js"></script>
+</body>
+</html>
