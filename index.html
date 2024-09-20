@@ -4,77 +4,30 @@
     <meta charset="UTF-8">
     <title>Gerador de Etiquetas</title>
     <style>
-        body {
-            font-family: Arial, sans-serif;
-            margin: 20px;
-            padding: 20px;
-            background-color: #f9f9f9;
-            border-radius: 8px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-        }
-        h1 {
-            color: #333;
-        }
-        .etiqueta {
-            margin-bottom: 10px;
-        }
-        button {
-            margin-top: 10px;
-        }
-        .resultado {
-            background-color: #e1f5fe;
-            padding: 10px;
-            border-radius: 5px;
-        }
+        /* Estilos aqui */
     </style>
-    <script>
-        function adicionarCampo() {
-            const numEtiquetas = document.getElementById('num_etiquetas');
-            const novoCampo = document.createElement('div');
-            novoCampo.classList.add('etiqueta');
-            novoCampo.innerHTML = `
-                <input type="text" name="ean_${numEtiquetas.value}" placeholder="EAN" onblur="buscarProduto(this)">
-                <input type="text" name="nome_${numEtiquetas.value}" placeholder="Nome do Produto" readonly>
-                <input type="number" name="quantidade_${numEtiquetas.value}" placeholder="Quantidade" min="1" value="1">
-                <button type="button" onclick="removerCampo(this)">Remover</button>
-            `;
-            document.getElementById('campos').appendChild(novoCampo);
-            numEtiquetas.value = parseInt(numEtiquetas.value) + 1;
-        }
-
-        function buscarProduto(input) {
-            const ean = input.value;
-            const nomeInput = input.parentElement.querySelector('input[type="text"][name^="nome_"]');
-            fetch(`/buscar?ean=${ean}`)
-                .then(response => response.json())
-                .then(data => {
-                    if (data.nome) {
-                        nomeInput.value = data.nome;
-                    } else {
-                        nomeInput.value = '';
-                    }
-                });
-        }
-
-        function removerCampo(button) {
-            button.parentElement.remove();
-            const numEtiquetas = document.getElementById('num_etiquetas');
-            numEtiquetas.value = parseInt(numEtiquetas.value) - 1;
-        }
-    </script>
 </head>
 <body>
     <h1>Gerador de Etiquetas</h1>
-    <form method="POST">
-        <input type="hidden" id="num_etiquetas" name="num_etiquetas" value="0">
-        <div id="campos"></div>
-        <button type="button" onclick="adicionarCampo()">Adicionar EAN</button>
+    <form id="form">
+        <input type="text" id="ean" placeholder="EAN" required>
+        <input type="number" id="quantidade" placeholder="Quantidade" min="1" value="1" required>
         <button type="submit">Gerar Etiquetas</button>
     </form>
 
-    {% if etiquetas %}
-        <h2>Etiquetas Geradas</h2>
-        <pre>{{ etiquetas }}</pre>
-    {% endif %}
+    <pre id="resultado"></pre>
+
+    <script>
+        document.getElementById('form').onsubmit = async (e) => {
+            e.preventDefault();
+            const ean = document.getElementById('ean').value;
+            const quantidade = document.getElementById('quantidade').value;
+
+            // Chamada para a API
+            const response = await fetch(`sua_api_endpoint?ean=${ean}&quantidade=${quantidade}`);
+            const data = await response.json();
+            document.getElementById('resultado').textContent = JSON.stringify(data);
+        };
+    </script>
 </body>
 </html>
