@@ -1,21 +1,60 @@
-<!DOCTYPE html>
-<html lang="pt-BR">
-<head>
-    <meta charset="UTF-8">
-    <title>Gerador de Etiquetas</title>
-    <link rel="stylesheet" href="styles.css">
-</head>
-<body>
-    <h1>Gerador de Etiquetas</h1>
-    <form id="form">
-        <div id="campos"></div>
-        <button type="button" onclick="adicionarCampo()">Adicionar EAN</button>
-        <button type="submit">Gerar Etiquetas</button>
-    </form>
+body {
+    font-family: Arial, sans-serif;
+    margin: 20px;
+    background-color: #f8f9fa;
+}
 
-    <h2>Etiquetas Geradas</h2>
-    <pre id="resultado"></pre>
+h1 {
+    color: #343a40;
+}
 
-    <script src="script.js"></script>
-</body>
-</html>
+h2 {
+    margin-top: 30px;
+    color: #495057;
+}
+
+form {
+    margin-bottom: 20px;
+}
+
+#campos {
+    margin-bottom: 10px;
+}
+
+.produto {
+    margin-bottom: 10px;
+    padding: 10px;
+    border: 1px solid #dee2e6;
+    border-radius: 5px;
+    background-color: #ffffff;
+}
+
+input[type="text"],
+input[type="number"] {
+    padding: 8px;
+    margin-right: 5px;
+    border: 1px solid #ced4da;
+    border-radius: 4px;
+    width: 200px;
+}
+
+button {
+    padding: 8px 12px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #0056b3;
+}
+
+button.remover {
+    background-color: #dc3545;
+}
+
+button.remover:hover {
+    background-color: #c82333;
+}
