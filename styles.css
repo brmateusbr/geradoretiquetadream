@@ -5,7 +5,7 @@ body {
     background-color: #9999999;
 }
 h1 {
-    color: #333;
+    color: ##999999;
 }
 input, button {
     margin: 5px 0;
@@ -14,12 +14,12 @@ input, button {
 }
 button {
     cursor: pointer;
-    background-color: #28a745;
+    background-color: ##999999;
     color: white;
     border: none;
 }
 button:hover {
-    background-color: #218838;
+    background-color: ##999999;
 }
 #campos {
     margin-bottom: 20px;
@@ -29,10 +29,10 @@ button:hover {
 }
 .remover {
     margin-top: 5px;
-    background-color: #dc3545;
+    background-color: ##999999;
 }
 .remover:hover {
-    background-color: #c82333;
+    background-color: ##999999;
 }
 pre {
     background-color: #fff;
