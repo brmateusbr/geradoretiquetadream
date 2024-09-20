@@ -27,7 +27,7 @@ function adicionarProduto() {
 
     celulaEAN.innerHTML = '<input type="text" class="ean-input" placeholder="EAN">';
     celulaNome.innerHTML = '<input type="text" class="nome-input" placeholder="Nome" readonly>';
-    celulaPreco.innerHTML = '<input type="text" class="preco-input" value="0.00" readonly>';
+    celulaPreco.innerHTML = '<input type="text" class="preco-input" placeholder="preco" readonly>';
     celulaQuantidade.innerHTML = '<input type="number" class="quantidade-input" min="1" value="1">';
     celulaAcoes.innerHTML = '<button class="removerProduto">Remover</button>';
 
