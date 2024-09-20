@@ -14,6 +14,7 @@ async function carregarProdutos() {
     });
 }
 
+// Função para adicionar um novo campo
 function adicionarCampo() {
     const novoCampo = document.createElement('div'); // Cria uma nova div
     novoCampo.className = 'produto'; // Define a classe da div
@@ -25,7 +26,6 @@ function adicionarCampo() {
     `;
     document.getElementById('campos').appendChild(novoCampo); // Adiciona a nova div ao contêiner
     numEtiquetas++; // Incrementa o número de etiquetas
-}
 }
 
 function removerCampo(button) {
@@ -43,6 +43,7 @@ function buscarProduto(ean, index) {
     }
 }
 
+// Impede o envio do formulário e gera as etiquetas
 document.getElementById('form').onsubmit = (e) => {
     e.preventDefault();
     gerarEtiquetas();
