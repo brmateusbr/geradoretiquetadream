@@ -15,16 +15,17 @@ async function carregarProdutos() {
 }
 
 function adicionarCampo() {
-    const novoCampo = document.createElement('div');
-    novoCampo.className = 'produto';
+    const novoCampo = document.createElement('div'); // Cria uma nova div
+    novoCampo.className = 'produto'; // Define a classe da div
     novoCampo.innerHTML = `
         <input type="text" name="ean_${numEtiquetas}" placeholder="EAN" required onblur="buscarProduto(this.value, ${numEtiquetas})">
         <input type="text" id="nome_${numEtiquetas}" placeholder="Nome do Produto" readonly>
         <input type="number" name="quantidade_${numEtiquetas}" placeholder="Quantidade" min="1" value="1" required>
         <button type="button" class="remover" onclick="removerCampo(this)">Remover</button>
     `;
-    document.getElementById('campos').appendChild(novoCampo);
-    numEtiquetas++;
+    document.getElementById('campos').appendChild(novoCampo); // Adiciona a nova div ao contêiner
+    numEtiquetas++; // Incrementa o número de etiquetas
+}
 }
 
 function removerCampo(button) {
