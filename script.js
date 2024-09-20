@@ -1,4 +1,7 @@
 const produtos = {}; // Armazena produtos
+const produtosTable = document.getElementById("produtosTable").getElementsByTagName("tbody")[0];
+const adicionarProdutoButton = document.getElementById("adicionarProduto");
+const gerarEtiquetasButton = document.getElementById("gerarEtiquetas");
 
 // Função para carregar produtos da planilha
 async function carregarProdutos() {
@@ -15,7 +18,6 @@ async function carregarProdutos() {
 
 // Função para adicionar uma nova linha à tabela
 function adicionarProduto() {
-    const produtosTable = document.getElementById("produtosTable").getElementsByTagName("tbody")[0];
     const novaLinha = produtosTable.insertRow();
     const celulaEAN = novaLinha.insertCell();
     const celulaNome = novaLinha.insertCell();
@@ -44,18 +46,20 @@ function adicionarProduto() {
 // Função para buscar o nome do produto por EAN
 function buscarProdutoPorEAN(ean, linha) {
     if (produtos[ean]) {
-        linha.querySelector('.nome-input').value = produtos[ean].descricao;
+        linha.querySelector('.nome-input').value = produtos[ean].descricao; // Preenche o nome
+        linha.querySelector('.preco-input').value = produtos[ean].preco; // Preenche o preço automaticamente
     } else {
+        linha.querySelector('.nome-input').value = ''; // Limpa o nome se não encontrado
+        linha.querySelector('.preco-input').value = '0.00'; // Reseta o preço se não encontrado
         alert('Produto não encontrado.');
     }
 }
 
 // Função para gerar as etiquetas ZPL
 function gerarEtiquetas() {
-    const produtosTable = document.getElementById("produtosTable").getElementsByTagName("tbody")[0];
     const linhasProdutos = produtosTable.querySelectorAll("tr");
     let zplCode = '';
-    const posicoesX = [33, 315, 595];
+    const posicoesX = [33, 315, 595];  // Posições X para etiquetas em uma mesma linha
 
     let produtoIndex = 0;
 
@@ -66,6 +70,7 @@ function gerarEtiquetas() {
         const quantidade = parseInt(linha.querySelector("td:nth-child(4) input").value, 10);
 
         for (let j = 0; j < quantidade; j++) {
+            // Adicionar ^XA para início do bloco de etiquetas
             if (produtoIndex % 3 === 0) {
                 zplCode += '\n^XA\n';
             }
@@ -78,12 +83,14 @@ function gerarEtiquetas() {
 
             produtoIndex++;
 
+            // Adicionar ^XZ para finalizar a cada grupo de 3 etiquetas
             if (produtoIndex % 3 === 0) {
                 zplCode += '\n^XZ\n';
             }
         }
     });
 
+    // Verificar se restam etiquetas fora de um múltiplo de 3 e fechar com ^XZ
     if (produtoIndex % 3 !== 0) {
         zplCode += '\n^XZ\n';
     }
@@ -104,14 +111,11 @@ function baixarArquivoZPL(zplCode) {
     link.click();
 }
 
-// Adicionar evento ao carregar a página
-document.addEventListener("DOMContentLoaded", () => {
-    const adicionarProdutoButton = document.getElementById("adicionarProduto");
-    const gerarEtiquetasButton = document.getElementById("gerarEtiquetas");
+// Adicionar evento para o botão "Adicionar Produto"
+adicionarProdutoButton.addEventListener("click", adicionarProduto);
 
-    adicionarProdutoButton.addEventListener("click", adicionarProduto);
-    gerarEtiquetasButton.addEventListener("click", gerarEtiquetas);
+// Adicionar evento para o botão "Gerar Etiquetas"
+gerarEtiquetasButton.addEventListener("click", gerarEtiquetas);
 
-    // Carregar produtos ao iniciar a página
-    carregarProdutos();
-});
+// Carregar produtos ao iniciar a página
+carregarProdutos();
